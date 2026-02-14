@@ -21,23 +21,20 @@ const Contact = () => {
         setStatus('loading');
 
         try {
-            const response = await fetch('https://api.web3forms.com/submit', {
+            const response = await fetch('https://formspree.io/f/mnnjrdrk', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: "647248f2-29fc-4874-9ae8-9679f0ec406a", // Updated valid access key
                     subject: `New Inquiry from ${formData.name}`,
-                    from_name: "PixelPro Website",
-                    to_email: "pixelproitsolutions@gmail.com",
+                    _replyto: formData.email,
                     ...formData
                 })
             });
 
-            const result = await response.json();
-            if (result.success) {
+            if (response.ok) {
                 setStatus('success');
                 setFormData({ name: '', email: '', phone: '', interest: 'Web Development', message: '' });
             } else {
