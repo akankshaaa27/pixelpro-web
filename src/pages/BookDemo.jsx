@@ -13,6 +13,7 @@ import {
     Loader2,
     X
 } from 'lucide-react';
+import siteConfig from '@/data/siteConfig.json';
 
 const BookDemo = () => {
     const [status, setStatus] = useState(null); // 'loading', 'success', 'error'
@@ -39,7 +40,18 @@ const BookDemo = () => {
         setStatus('loading');
 
         try {
-            const response = await fetch("https://formsubmit.co/ajax/pixelproitsolutions@gmail.com", {
+            const submissionData = {
+                ...formData,
+                submittedAt: new Date().toISOString(),
+                type: 'Demo Request'
+            };
+
+            // 1. Store locally in JSON format (localStorage)
+            const existingLeads = JSON.parse(localStorage.getItem('pixelpro_leads') || '[]');
+            localStorage.setItem('pixelpro_leads', JSON.stringify([...existingLeads, submissionData], null, 2));
+
+            // 2. Send via FormSubmit
+            const response = await fetch(`https://formsubmit.co/ajax/${siteConfig.company.email}`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,18 +74,12 @@ const BookDemo = () => {
         }
     };
 
-    const interests = [
-        { id: 'Photography OS', icon: Monitor, label: 'Photography OS' },
-        { id: 'AI Automation', icon: Zap, label: 'AI Automation' },
-        { id: 'Web/Mobile App', icon: Monitor, label: 'Web/Mobile App' },
-        { id: 'Enterprise CRM', icon: Users, label: 'Enterprise CRM' }
-    ];
+    const interests = siteConfig.demoInterests.map(item => ({
+        ...item,
+        icon: item.id === 'AI Automation' ? Zap : item.id === 'Enterprise CRM' ? Users : Monitor
+    }));
 
-    const timeSlots = [
-        'Morning (9AM - 12PM)',
-        'Afternoon (12PM - 4PM)',
-        'Evening (4PM - 7PM)'
-    ];
+    const timeSlots = siteConfig.demoTimeSlots;
 
     return (
         <div className="py-20 lg:py-32 min-h-screen bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
@@ -174,8 +180,8 @@ const BookDemo = () => {
                                                                     type="button"
                                                                     onClick={() => setFormData({ ...formData, interest: item.id })}
                                                                     className={`p-6 rounded-3xl border-2 transition-all text-left flex flex-col space-y-3 ${formData.interest === item.id
-                                                                            ? 'border-primary-600 bg-primary-600/5 ring-4 ring-primary-600/10'
-                                                                            : 'border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:border-slate-200'
+                                                                        ? 'border-primary-600 bg-primary-600/5 ring-4 ring-primary-600/10'
+                                                                        : 'border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5 hover:border-slate-200'
                                                                         }`}
                                                                 >
                                                                     <item.icon size={24} className={formData.interest === item.id ? 'text-primary-600' : 'text-slate-400'} />

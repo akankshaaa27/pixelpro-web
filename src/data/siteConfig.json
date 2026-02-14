@@ -1,0 +1,42 @@
+{
+    "company": {
+        "name": "PixelPro",
+        "fullName": "PixelPro Software Solutions",
+        "email": "pixelproitsolutions@gmail.com",
+        "phone": "+91 8767826955",
+        "address": "Pune, Maharashtra, India",
+        "whatsapp": "918767826955"
+    },
+    "services": [
+        "Web Development",
+        "Mobile Apps",
+        "E-commerce",
+        "SaaS Solutions",
+        "Photography OS",
+        "AI & Machine Learning",
+        "Enterprise CRM"
+    ],
+    "demoInterests": [
+        {
+            "id": "Photography OS",
+            "label": "Photography OS"
+        },
+        {
+            "id": "AI Automation",
+            "label": "AI Automation"
+        },
+        {
+            "id": "Web/Mobile App",
+            "label": "Web/Mobile App"
+        },
+        {
+            "id": "Enterprise CRM",
+            "label": "Enterprise CRM"
+        }
+    ],
+    "demoTimeSlots": [
+        "Morning (9AM - 12PM)",
+        "Afternoon (12PM - 4PM)",
+        "Evening (4PM - 7PM)"
+    ]
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock, Loader2, CheckCircle2 } from 'lucide-react';
+import siteConfig from '@/data/siteConfig.json';
 
 const Contact = () => {
     const [status, setStatus] = useState(null); // 'loading', 'success', 'error'
@@ -21,8 +22,18 @@ const Contact = () => {
         setStatus('loading');
 
         try {
-            // Using FormSubmit.co - Very reliable and matches photography-webapp style
-            const response = await fetch("https://formsubmit.co/ajax/pixelproitsolutions@gmail.com", {
+            const submissionData = {
+                ...formData,
+                submittedAt: new Date().toISOString(),
+                type: 'Contact Inquiry'
+            };
+
+            // 1. Store locally in JSON format (localStorage)
+            const existingLeads = JSON.parse(localStorage.getItem('pixelpro_leads') || '[]');
+            localStorage.setItem('pixelpro_leads', JSON.stringify([...existingLeads, submissionData], null, 2));
+
+            // 2. Send via FormSubmit
+            const response = await fetch(`https://formsubmit.co/ajax/${siteConfig.company.email}`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +48,7 @@ const Contact = () => {
 
             if (response.ok) {
                 setStatus('success');
-                setFormData({ name: '', email: '', phone: '', interest: 'Web Development', message: '' });
+                setFormData({ name: '', email: '', phone: '', interest: siteConfig.services[0], message: '' });
             } else {
                 setStatus('error');
             }
@@ -69,7 +80,7 @@ const Contact = () => {
                                         <Phone size={18} />
                                     </div>
                                     <a
-                                        href="https://wa.me/918767826955"
+                                        href={`https://wa.me/${siteConfig.company.whatsapp}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={(e) => {
@@ -79,7 +90,7 @@ const Contact = () => {
                                         }}
                                         className="hover:text-primary-100 transition-colors"
                                     >
-                                        +91 8767826955
+                                        {siteConfig.company.phone}
                                     </a>
                                 </div>
                                 <div className="flex items-center space-x-4">
@@ -87,17 +98,17 @@ const Contact = () => {
                                         <Mail size={18} />
                                     </div>
                                     <a
-                                        href="mailto:pixelproitsolutions@gmail.com"
+                                        href={`mailto:${siteConfig.company.email}`}
                                         className="hover:text-primary-100 transition-colors"
                                     >
-                                        pixelproitsolutions@gmail.com
+                                        {siteConfig.company.email}
                                     </a>
                                 </div>
                                 <div className="flex items-start space-x-4">
                                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                                         <MapPin size={18} />
                                     </div>
-                                    <span>Pune, Maharashtra, India</span>
+                                    <span>{siteConfig.company.address}</span>
                                 </div>
                             </div>
                         </div>
@@ -188,12 +199,9 @@ const Contact = () => {
                                                 onChange={handleChange}
                                                 className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none appearance-none"
                                             >
-                                                <option>Web Development</option>
-                                                <option>Mobile App</option>
-                                                <option>AI & Machine Learning</option>
-                                                <option>Photography Solutions</option>
-                                                <option>SaaS Development</option>
-                                                <option>Other</option>
+                                                {siteConfig.services.map(service => (
+                                                    <option key={service}>{service}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
