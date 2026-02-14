@@ -24,19 +24,19 @@ const Contact = () => {
                                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                                         <Phone size={18} />
                                     </div>
-                                    <span>+1 (555) 000-0000</span>
+                                    <span>+91 8767826955</span>
                                 </div>
                                 <div className="flex items-center space-x-4">
                                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                                         <Mail size={18} />
                                     </div>
-                                    <span>contact@pixelpro.com</span>
+                                    <span>pixelproitsolutions@gmail.com</span>
                                 </div>
                                 <div className="flex items-start space-x-4">
                                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                                         <MapPin size={18} />
                                     </div>
-                                    <span>123 Tech Avenue, Innovation City, CA 94043</span>
+                                    <span>Pune, Maharashtra, India</span>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ const Contact = () => {
                                         <label className="text-sm font-bold ml-1">Phone Number</label>
                                         <input
                                             type="tel"
-                                            placeholder="+1 (555) 000-0000"
+                                            placeholder="+91 8767826955"
                                             className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none"
                                         />
                                     </div>

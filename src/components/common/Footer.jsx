@@ -64,15 +64,15 @@ const Footer = () => {
                         <ul className="space-y-4">
                             <li className="flex items-start space-x-3 text-sm text-slate-600 dark:text-slate-400">
                                 <MapPin size={18} className="text-primary-600 shrink-0" />
-                                <span>123 Tech Avenue, Innovation City, CA 94043</span>
+                                <span>Pune, Maharashtra, India</span>
                             </li>
                             <li className="flex items-center space-x-3 text-sm text-slate-600 dark:text-slate-400">
                                 <Phone size={18} className="text-primary-600 shrink-0" />
-                                <span>+1 (555) 000-0000</span>
+                                <span>+91 8767826955</span>
                             </li>
                             <li className="flex items-center space-x-3 text-sm text-slate-600 dark:text-slate-400">
                                 <Mail size={18} className="text-primary-600 shrink-0" />
-                                <span>contact@pixelpro.com</span>
+                                <span>pixelproitsolutions@gmail.com</span>
                             </li>
                         </ul>
                     </div>

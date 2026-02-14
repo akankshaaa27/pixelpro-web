@@ -8,7 +8,7 @@ const WhatsAppButton = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="fixed bottom-8 right-8 z-50 p-4 bg-green-500 text-white rounded-full shadow-lg shadow-green-500/30 flex items-center justify-center group"
-            onClick={() => window.open('https://wa.me/1234567890', '_blank')}
+            onClick={() => window.open('https://wa.me/918767826955', '_blank')}
         >
             <div className="absolute right-full mr-4 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white rounded-xl text-sm font-bold shadow-xl opacity-0 scale-90 -translate-x-4 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all pointer-events-none whitespace-nowrap">
                 Chat with our AI Team
