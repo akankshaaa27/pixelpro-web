@@ -21,16 +21,17 @@ const Contact = () => {
         setStatus('loading');
 
         try {
-            const response = await fetch('https://formspree.io/f/mnnjrdrk', {
-                method: 'POST',
+            // Using FormSubmit.co - Very reliable and matches photography-webapp style
+            const response = await fetch("https://formsubmit.co/ajax/pixelproitsolutions@gmail.com", {
+                method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    subject: `New Inquiry from ${formData.name}`,
-                    _replyto: formData.email,
-                    ...formData
+                    ...formData,
+                    _subject: `New Inquiry: ${formData.interest} from ${formData.name}`,
+                    _template: 'table'
                 })
             });
 
