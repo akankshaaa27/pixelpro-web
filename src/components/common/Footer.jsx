@@ -68,11 +68,28 @@ const Footer = () => {
                             </li>
                             <li className="flex items-center space-x-3 text-sm text-slate-600 dark:text-slate-400">
                                 <Phone size={18} className="text-primary-600 shrink-0" />
-                                <span>+91 8767826955</span>
+                                <a
+                                    href="https://wa.me/918767826955"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => {
+                                        if (!window.confirm("Would you like to chat with us on WhatsApp?")) {
+                                            e.preventDefault();
+                                        }
+                                    }}
+                                    className="hover:text-primary-600 transition-colors"
+                                >
+                                    +91 8767826955
+                                </a>
                             </li>
                             <li className="flex items-center space-x-3 text-sm text-slate-600 dark:text-slate-400">
                                 <Mail size={18} className="text-primary-600 shrink-0" />
-                                <span>pixelproitsolutions@gmail.com</span>
+                                <a
+                                    href="mailto:pixelproitsolutions@gmail.com"
+                                    className="hover:text-primary-600 transition-colors"
+                                >
+                                    pixelproitsolutions@gmail.com
+                                </a>
                             </li>
                         </ul>
                     </div>

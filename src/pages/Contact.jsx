@@ -68,13 +68,30 @@ const Contact = () => {
                                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                                         <Phone size={18} />
                                     </div>
-                                    <span>+91 8767826955</span>
+                                    <a
+                                        href="https://wa.me/918767826955"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => {
+                                            if (!window.confirm("Would you like to chat with us on WhatsApp?")) {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        className="hover:text-primary-100 transition-colors"
+                                    >
+                                        +91 8767826955
+                                    </a>
                                 </div>
                                 <div className="flex items-center space-x-4">
                                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                                         <Mail size={18} />
                                     </div>
-                                    <span>pixelproitsolutions@gmail.com</span>
+                                    <a
+                                        href="mailto:pixelproitsolutions@gmail.com"
+                                        className="hover:text-primary-100 transition-colors"
+                                    >
+                                        pixelproitsolutions@gmail.com
+                                    </a>
                                 </div>
                                 <div className="flex items-start space-x-4">
                                     <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
