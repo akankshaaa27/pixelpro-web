@@ -1,6 +1,7 @@
 import Hero from '@/components/sections/Hero';
 import Services from '@/components/sections/ServicesOverview';
 import AISolutions from '@/components/sections/AISolutions';
+import PhotographyShowcase from '@/components/sections/PhotographyShowcase';
 import WebDevShowcase from '@/components/sections/WebDevShowcase';
 import TechStack from '@/components/sections/TechStack';
 import ClientReach from '@/components/sections/ClientReach';
@@ -35,9 +36,11 @@ const Home = () => {
                 </div>
             </section>
 
+            <PhotographyShowcase />
             <Services />
 
             <AISolutions />
+
 
             <WebDevShowcase />
 
@@ -107,3 +110,4 @@ const Home = () => {
 };
 
 export default Home;
+

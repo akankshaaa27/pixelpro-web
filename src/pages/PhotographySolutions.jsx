@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Camera, Calendar, Users, BarChart3, Cloud, Layout, Sparkles, Brain, CheckCircle2 } from 'lucide-react';
+import { Camera, Calendar, Users, BarChart3, Cloud, Layout, Sparkles, Brain, CheckCircle2, Zap, ArrowRight, Smartphone, Image as ImageIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const PhotographySolutions = () => {
@@ -12,30 +12,141 @@ const PhotographySolutions = () => {
         { title: 'Booking Systems', icon: Calendar, desc: 'Automated scheduling with deposit payments and availability management.' },
     ];
 
+    const workflowSteps = [
+        {
+            title: "Capture & Sync",
+            desc: "Shoot directly to our cloud-connected app. Photos sync in real-time to your studio dashboard.",
+            icon: Camera,
+            step: "01"
+        },
+        {
+            title: "AI Analysis",
+            desc: "Our neural engine automatically sorts, culls, and tags images based on quality and content.",
+            icon: Brain,
+            step: "02"
+        },
+        {
+            title: "Instant Proofing",
+            desc: "Clients receive a personalized gallery link with facial recognition search within minutes.",
+            icon: ImageIcon,
+            step: "03"
+        },
+        {
+            title: "Seamless Checkout",
+            desc: "Automated upsells and high-res downloads once payments are processed through Stripe/PayPal.",
+            icon: Smartphone,
+            step: "04"
+        }
+    ];
+
     return (
-        <div className="py-20">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="max-w-4xl mx-auto text-center mb-20">
-                    <div className="inline-block px-4 py-1.5 bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400 rounded-full text-sm font-bold mb-6">
-                        AI-Ready Solutions
-                    </div>
-                    <h1 className="text-5xl md:text-6xl font-bold mb-8">Elevate Your <span className="text-secondary-500">Photography Business</span></h1>
-                    <p className="text-xl text-slate-600 dark:text-slate-400">
-                        We build specialized software ecosystems designed specifically for professional photographers and studios to automate their workflow with cutting-edge AI.
-                    </p>
+        <div className="pb-20">
+            {/* Hero Section */}
+            <section className="relative h-[80vh] flex items-center overflow-hidden mb-20">
+                <div className="absolute inset-0">
+                    <img
+                        src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2070&auto=format&fit=crop"
+                        alt="Photography Tech Hero"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px]"></div>
                 </div>
 
+                <div className="container mx-auto px-4 md:px-6 relative z-10">
+                    <div className="max-w-4xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="inline-block px-4 py-1.5 bg-secondary-500/20 text-secondary-400 rounded-full text-sm font-bold mb-6 border border-secondary-500/30"
+                        >
+                            <Zap size={14} className="inline mr-2" />
+                            Next-Gen Photography OS
+                        </motion.div>
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-6xl md:text-8xl font-black text-white mb-8 leading-tight"
+                        >
+                            Where Art Meets <br />
+                            <span className="text-secondary-500 text-gradient">Automation.</span>
+                        </motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl leading-relaxed"
+                        >
+                            The most advanced software ecosystem built for the professional photographer who refuses to settle for average workflows.
+                        </motion.p>
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="flex flex-col sm:flex-row gap-4"
+                        >
+                            <Link to="/contact" className="px-10 py-4 bg-secondary-500 text-white rounded-2xl font-bold hover:bg-secondary-600 transition-colors flex items-center justify-center">
+                                Start Free Trial
+                                <ArrowRight size={20} className="ml-2" />
+                            </Link>
+                            <Link to="/portfolio" className="px-10 py-4 bg-white/10 text-white border border-white/20 rounded-2xl font-bold hover:bg-white/20 transition-colors backdrop-blur-md flex items-center justify-center">
+                                View Demo Gallery
+                            </Link>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            <div className="container mx-auto px-4 md:px-6">
+                {/* Solutions Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
                     {solutions.map((item, i) => (
-                        <div key={i} className="p-10 rounded-[2.5rem] glass-card border-none shadow-xl hover:-translate-y-2 transition-transform group">
-                            <div className="w-16 h-16 rounded-2xl bg-secondary-500/10 text-secondary-500 flex items-center justify-center mb-8 group-hover:bg-secondary-500 group-hover:text-white transition-all duration-500">
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className="p-10 rounded-[2.5rem] glass-card border-none shadow-xl hover:-translate-y-2 transition-transform group"
+                        >
+                            <div className="w-16 h-16 rounded-2xl bg-secondary-500/10 text-secondary-500 flex items-center justify-center mb-8 group-hover:bg-secondary-500 group-hover:text-white transition-all duration-500 shadow-lg shadow-secondary-500/10">
                                 <item.icon size={32} />
                             </div>
                             <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
                             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
+
+                {/* Workflow Section */}
+                <section className="py-24 mb-32 relative">
+                    <div className="text-center max-w-3xl mx-auto mb-20">
+                        <h2 className="text-4xl md:text-5xl font-black mb-6">Built for the <span className="text-primary-600">Modern Workflow</span></h2>
+                        <p className="text-lg text-slate-600 dark:text-slate-400">Our ecosystem connects every part of your photography business into one high-performance machine.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {workflowSteps.map((step, i) => (
+                            <div key={i} className="relative">
+                                <div className="text-8xl font-black text-slate-100 dark:text-slate-900 absolute -top-10 -left-4 -z-10 select-none">
+                                    {step.step}
+                                </div>
+                                <div className="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm relative z-10 h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-primary-600/10 text-primary-600 flex items-center justify-center mb-6">
+                                        <step.icon size={24} />
+                                    </div>
+                                    <h4 className="text-xl font-bold mb-3">{step.title}</h4>
+                                    <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
+                                </div>
+                                {i < workflowSteps.length - 1 && (
+                                    <div className="hidden lg:block absolute top-1/2 -right-4 translate-x-1/2 z-20 text-slate-300">
+                                        <ArrowRight size={24} />
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </section>
 
                 {/* AI Feature Spotlight */}
                 <div className="mb-32">
@@ -69,7 +180,7 @@ const PhotographySolutions = () => {
                         <div className="relative">
                             <div className="aspect-square rounded-[40px] overflow-hidden shadow-2xl relative">
                                 <img
-                                    src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=2074&auto=format&fit=crop"
+                                    src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2070&auto=format&fit=crop"
                                     alt="Professional Photography"
                                     className="w-full h-full object-cover"
                                 />
@@ -97,17 +208,27 @@ const PhotographySolutions = () => {
                     </div>
                 </div>
 
-                <div className="rounded-[3rem] bg-gradient-to-r from-secondary-600 to-primary-600 p-12 md:p-20 text-center text-white relative overflow-hidden">
-                    <div className="relative z-10 max-w-2xl mx-auto">
-                        <h2 className="text-4xl font-bold mb-6">Built by Developers, Loved by Photographers</h2>
-                        <p className="text-lg text-white/80 mb-10">
-                            Transform your hobby into a high-performance business with our specialized automation tools.
+                {/* Call to Action */}
+                <div className="rounded-[3rem] bg-gradient-to-r from-secondary-600 to-primary-600 p-12 md:p-32 text-center text-white relative overflow-hidden">
+                    <div className="relative z-10 max-w-3xl mx-auto">
+                        <h2 className="text-5xl md:text-6xl font-black mb-8 leading-tight">Ready to Transform Your Photography Business?</h2>
+                        <p className="text-xl text-white/80 mb-12 leading-relaxed">
+                            Join over 5,000 professional photographers who have reclaimed an average of 15 hours per week using PixelPro's automation.
                         </p>
-                        <Link to="/contact" className="px-10 py-4 bg-white text-slate-900 rounded-2xl font-bold hover:bg-slate-100 transition-colors inline-block">
-                            Request a Demo
-                        </Link>
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                            <Link to="/contact" className="px-12 py-5 bg-white text-slate-900 rounded-2xl font-bold hover:bg-slate-100 transition-all hover:scale-105 inline-block text-lg">
+                                Start Your Project
+                            </Link>
+                            <span className="text-sm font-bold text-white/60">No credit card required.</span>
+                        </div>
                     </div>
-                    <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                    {/* Animated background shapes */}
+                    <div className="absolute top-0 right-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+                        className="absolute -top-1/2 -left-1/2 w-full h-full border-[1px] border-white/5 rounded-full"
+                    />
                 </div>
             </div>
         </div>
@@ -115,3 +236,4 @@ const PhotographySolutions = () => {
 };
 
 export default PhotographySolutions;
+

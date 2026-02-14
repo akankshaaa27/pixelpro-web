@@ -24,11 +24,12 @@ const TechStack = () => {
             ]
         },
         {
-            category: "Mobile Solutions",
-            icon: Smartphone,
+            category: "AI & Computer Vision",
+            icon: Cpu,
             techs: [
-                { name: "React Native", level: "Expert" },
-                { name: "iOS/Android", level: "Native" }
+                { name: "PyTorch", level: "Neural" },
+                { name: "OpenCV", level: "Imaging" },
+                { name: "TensorFlow", level: "Models" }
             ]
         },
         {
@@ -38,7 +39,7 @@ const TechStack = () => {
                 { name: "Node.js", level: "Expert" },
                 { name: "NestJS", level: "Scalable" },
                 { name: "Python", level: "AI/ML" },
-                { name: "PHP", level: "Legacy/Modern" }
+                { name: "PHP", level: "Modern" }
             ]
         },
         {
