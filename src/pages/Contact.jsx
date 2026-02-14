@@ -28,7 +28,7 @@ const Contact = () => {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: "e88a38a1-d812-45e0-9177-38e92592d527", // Public access key for web3forms
+                    access_key: "647248f2-29fc-4874-9ae8-9679f0ec406a", // Updated valid access key
                     subject: `New Inquiry from ${formData.name}`,
                     from_name: "PixelPro Website",
                     to_email: "pixelproitsolutions@gmail.com",
