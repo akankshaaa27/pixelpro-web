@@ -1,6 +1,7 @@
 import AppRouter from './routes/AppRouter';
 import { AnimatePresence } from 'framer-motion';
 import WhatsAppButton from './components/WhatsAppButton';
+import AIChatbot from './components/AIChatbot';
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
                 <AppRouter />
             </AnimatePresence>
 
+            <AIChatbot />
             <WhatsAppButton />
         </div>
     );
