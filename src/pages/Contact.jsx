@@ -1,7 +1,53 @@
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare, Clock, Loader2, CheckCircle2 } from 'lucide-react';
 
 const Contact = () => {
+    const [status, setStatus] = useState(null); // 'loading', 'success', 'error'
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        interest: 'Web Development',
+        message: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('loading');
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: "e88a38a1-d812-45e0-9177-38e92592d527", // Public access key for web3forms
+                    subject: `New Inquiry from ${formData.name}`,
+                    from_name: "PixelPro Website",
+                    to_email: "pixelproitsolutions@gmail.com",
+                    ...formData
+                })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                setStatus('success');
+                setFormData({ name: '', email: '', phone: '', interest: 'Web Development', message: '' });
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            setStatus('error');
+        }
+    };
+
     return (
         <div className="py-20 lg:py-32">
             <div className="container mx-auto px-4 md:px-6">
@@ -53,68 +99,125 @@ const Contact = () => {
 
                     {/* Contact Form */}
                     <div className="lg:col-span-2">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="p-8 md:p-12 rounded-[2.5rem] glass-card shadow-2xl"
-                        >
-                            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold ml-1">Your Name</label>
-                                        <input
-                                            type="text"
-                                            placeholder="John Doe"
-                                            className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none"
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold ml-1">Email Address</label>
-                                        <input
-                                            type="email"
-                                            placeholder="john@example.com"
-                                            className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none"
-                                        />
-                                    </div>
+                        {status === 'success' ? (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="h-full flex flex-col items-center justify-center p-12 rounded-[2.5rem] glass-card text-center"
+                            >
+                                <div className="w-20 h-20 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-6">
+                                    <CheckCircle2 size={40} />
                                 </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold ml-1">Phone Number</label>
-                                        <input
-                                            type="tel"
-                                            placeholder="+91 8767826955"
-                                            className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none"
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-bold ml-1">Interest</label>
-                                        <select className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none appearance-none">
-                                            <option>Web Development</option>
-                                            <option>Mobile App</option>
-                                            <option>AI & Machine Learning</option>
-                                            <option>Photography Solutions</option>
-                                            <option>SaaS Development</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold ml-1">Your Message</label>
-                                    <textarea
-                                        rows="4"
-                                        placeholder="Tell us about your project..."
-                                        className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none resize-none"
-                                    ></textarea>
-                                </div>
-
-                                <button className="btn-primary w-full py-5 rounded-2xl flex items-center justify-center space-x-3 text-lg">
-                                    <span>Send Message</span>
-                                    <Send size={20} />
+                                <h3 className="text-3xl font-bold mb-4">Message Sent!</h3>
+                                <p className="text-slate-600 dark:text-slate-400 mb-8">
+                                    Thank you for reaching out. We've received your inquiry and will get back to you at {formData.email || 'your email'} shortly.
+                                </p>
+                                <button
+                                    onClick={() => setStatus(null)}
+                                    className="btn-primary px-8 py-3 rounded-xl"
+                                >
+                                    Send Another Message
                                 </button>
-                            </form>
-                        </motion.div>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="p-8 md:p-12 rounded-[2.5rem] glass-card shadow-2xl"
+                            >
+                                <form className="space-y-8" onSubmit={handleSubmit}>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold ml-1">Your Name</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                required
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                placeholder="John Doe"
+                                                className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold ml-1">Email Address</label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                required
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                placeholder="john@example.com"
+                                                className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold ml-1">Phone Number</label>
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                placeholder="+91 8767826955"
+                                                className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold ml-1">Interest</label>
+                                            <select
+                                                name="interest"
+                                                value={formData.interest}
+                                                onChange={handleChange}
+                                                className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none appearance-none"
+                                            >
+                                                <option>Web Development</option>
+                                                <option>Mobile App</option>
+                                                <option>AI & Machine Learning</option>
+                                                <option>Photography Solutions</option>
+                                                <option>SaaS Development</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-bold ml-1">Your Message</label>
+                                        <textarea
+                                            rows="4"
+                                            name="message"
+                                            required
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            placeholder="Tell us about your project..."
+                                            className="w-full px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-none focus:ring-2 focus:ring-primary-600 transition-all outline-none resize-none"
+                                        ></textarea>
+                                    </div>
+
+                                    {status === 'error' && (
+                                        <p className="text-red-500 text-sm font-bold text-center">
+                                            Something went wrong. Please try again or email us directly.
+                                        </p>
+                                    )}
+
+                                    <button
+                                        disabled={status === 'loading'}
+                                        className="btn-primary w-full py-5 rounded-2xl flex items-center justify-center space-x-3 text-lg disabled:opacity-50"
+                                    >
+                                        {status === 'loading' ? (
+                                            <Loader2 size={24} className="animate-spin" />
+                                        ) : (
+                                            <>
+                                                <span>Send Message</span>
+                                                <Send size={20} />
+                                            </>
+                                        )}
+                                    </button>
+                                </form>
+                            </motion.div>
+                        )}
                     </div>
                 </div>
             </div>
